@@ -12,7 +12,28 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        $task['tasks'] = Task::all();
+        return view('task.index', $task);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $task = request()->all();
+        task::create($task);
+        return redirect('/');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy($id)
+    {
+        $task = task::findOrFail($id);
+        $task->delete();
+        return redirect('/');
     }
 
     /**
@@ -23,13 +44,6 @@ class TaskController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.
@@ -55,11 +69,4 @@ class TaskController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(task $task)
-    {
-        //
-    }
 }
